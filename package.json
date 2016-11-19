@@ -1,0 +1,24 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "parse-rss": "^1.0.3",
+    "rss-parser": "^2.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/komleviktor/BigData.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/komleviktor/BigData/issues"
+  },
+  "homepage": "https://github.com/komleviktor/BigData#readme",
+  "description": ""
+}
