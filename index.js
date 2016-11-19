@@ -1,4 +1,5 @@
 var parser = require('rss-parser');
+var fs = require('fs');
 
 var url = ['https://www.reddit.com/.rss',
             'http://fakty.ua/rss_feed/ukraina/',
@@ -40,18 +41,41 @@ var url = ['https://www.reddit.com/.rss',
             'http://fishnews.ru/rss_full',
             'http://mygazeta.com/feed'
           ];
-        for (var i = 0; i<url.length; i++){
-          console.log('++++++++ INDEX +++++++ ',i);
-          parser.parseURL(url[34], function(err, parsed) {
-          console.log(parsed.feed.title);
-          parsed.feed.entries.forEach(function(entry) {
-            console.log('entry.title :', entry.title);
-            console.log('entry.link :', entry.link);
-            console.log('entry.au :', entry.author);
-            console.log('pubDate :', entry.pubDate);
-            console.log('entry.guid :', entry.guid);
-            console.log('entry.categories :', entry.category);
-            console.log('===========================================');
+          var count = 0;
+          var arr_news = [];
+          for (var i = 0; i<url.length; i++){
+          //  console.log('++++++++ INDEX +++++++ ',i);
+            parser.parseURL(url[34], function(err, parsed) {
+          //  console.log(parsed.feed.title);
+            parsed.feed.entries.forEach(function(entry) {
+              var obj = { title: null,
+                          link: null,
+                          author: null,
+                          pubDate:null,
+                          guid: null,
+                          categories: null,
+            }
+              count ++;
+              obj.title = entry.title;
+              obj.link = entry.link;
+              obj.author = entry.author;
+              obj.pubDate = entry.pubDate;
+              obj.guid = entry.guid;
+              obj.categories = entry.categories;
+              //console.log('entry.title :', entry.title);
+        //      console.log('entry.link :', entry.link);
+            //  console.log('entry.au :', entry.author);
+      //        console.log('pubDate :', entry.pubDate);
+  //            console.log('entry.guid :', entry.guid);
+      //        console.log('entry.categories :', entry.categories);
+      //        console.log ('count' ,count);
+        //      console.log('===========================================');
+              arr_news.push(obj);
+
+                fs.writeFileSync('test.txt', JSON.stringify( arr_news));
+                console.log('dgfdsssssg',arr_news.length);
           })
-        })
+
+          })
+
       }
