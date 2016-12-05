@@ -39,7 +39,7 @@ var url = ['https://www.reddit.com/.rss',
             'http://rostec.ru/rss_yandex',
             'http://slawyanka.info/feed',
             'http://fishnews.ru/rss_full',
-            'http://mygazeta.com/feed',
+            'http://mygazeta.com/feed'/*,
             'http://rss.garant.ru/consult/budget/',
             'http://rss.garant.ru/consult/gpurchase/',
             'http://rss.garant.ru/consult/work_law/',
@@ -135,12 +135,17 @@ var url = ['https://www.reddit.com/.rss',
             'http://rss.garant.ru/hotlaw/chechnya/',
             'http://rss.garant.ru/hotlaw/chuvashia/',
             'http://rss.garant.ru/hotlaw/yamalonenecky/',
-            'http://rss.garant.ru/hotlaw/yaroslavl/'
+            'http://rss.garant.ru/hotlaw/yaroslavl/'*/
           ];
           var count = 0;
           var arr_news = [];
           for (var i = 0; i<url.length; i++){
             parser.parseURL(url[i], function(err, parsed) {
+              if (err) {
+                console.log('err');
+
+              } else {
+
             parsed.feed.entries.forEach(function(entry) {
             //  console.log(entry);
               var obj = { title: null,
@@ -151,7 +156,7 @@ var url = ['https://www.reddit.com/.rss',
                           categories: null,
             }
               count ++;
-              v
+              console.log(entry);
               obj.title = entry.title;
               obj.link = entry.link;
               obj.author = entry.author;
@@ -159,8 +164,8 @@ var url = ['https://www.reddit.com/.rss',
               obj.guid = entry.guid;
               obj.categories = entry.categories;
               arr_news.push(obj);
-              fs.appendFileSync('rezult.xml', JSON.stringify(entry),'utf8');
-            })
+              fs.appendFileSync(count+'azaza'+'.json', JSON.stringify(entry),'utf8');
+            })}
           })
       }
       console.log('FINISH' + ' count = '+ count);
