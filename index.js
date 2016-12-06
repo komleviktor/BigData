@@ -137,8 +137,13 @@ var url = ['https://www.reddit.com/.rss',
             'http://rss.garant.ru/hotlaw/yamalonenecky/',
             'http://rss.garant.ru/hotlaw/yaroslavl/'*/
           ];
-          var count = 0;
+          var count = 1793;
           var arr_news = [];
+          var elasticsearch = require('elasticsearch');
+          var client = new elasticsearch.Client({
+            host: 'localhost:9200',
+            log: 'trace'
+          });
           for (var i = 0; i<url.length; i++){
             parser.parseURL(url[i], function(err, parsed) {
               if (err) {
@@ -164,6 +169,15 @@ var url = ['https://www.reddit.com/.rss',
               obj.guid = entry.guid;
               obj.categories = entry.categories;
               arr_news.push(obj);
+              client.index({
+                index: 'news',
+                type: 'article',
+                id: count,
+                body: entry
+            }, function (error, response) {
+              console.log(response);
+              console.log(error);
+            });
               fs.appendFileSync(count+'azaza'+'.json', JSON.stringify(entry),'utf8');
             })}
           })

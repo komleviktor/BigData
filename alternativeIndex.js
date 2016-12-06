@@ -137,13 +137,32 @@ var url = ['https://www.reddit.com/.rss',
             'http://rss.garant.ru/hotlaw/yamalonenecky/',
             'http://rss.garant.ru/hotlaw/yaroslavl/'*/
           ];
+          var elasticsearch = require('elasticsearch');
+          var client = new elasticsearch.Client({
+            host: 'localhost:9200',
+            log: 'trace'
+          });
           var count = 0;
           var arr_news = [];
           for (var i = 0; i<url.length; i++){
             parser(url[i], function(err, rss) {
-                console.log(rss);
+              //  console.log(rss);
                 count++;
+                client.index({
+                  index: 'rss',
+                  type: 'article',
+                  id: count,
+                  body: {
+                  title: 'Test 1',
+                  tags: ['y', 'z'],
+                  published: true,
+                }
+              }, function (error, response) {
+                console.log(response);
+                console.log(error);
+              });
                 fs.appendFileSync(count+'.json', JSON.stringify(rss));
           })
       }
+
       console.log('FINISH' + ' count = '+ count);

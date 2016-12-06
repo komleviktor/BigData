@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "elasticsearch": "^12.1.0",
     "fs": "0.0.1-security",
     "parse-rss": "^1.0.3",
     "rss-parser": "^2.5.2"
